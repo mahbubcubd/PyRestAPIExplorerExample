@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Bootstrap Example</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <script src="https://cdn.rawgit.com/IonicaBizau/github-calendar/gh-pages/dist/github-calendar.min.js"></script>
+  <link rel="stylesheet" href="https://cdn.rawgit.com/IonicaBizau/github-calendar/gh-pages/dist/github-calendar.css" />
+  <style>
+
+    .jumbotron {
+    color: white;
+    background-color: #13a3e4;
+    margin-bottom: 0;
+    padding-bottom: 10px;
+    padding-top: 0px;
+    }
+
+    /* Add a gray background color and some padding to the footer */
+    footer {
+      background-color: #f2f2f2;
+      padding: 25px;
+    }
+
+   .now{
+        position: relative;
+        text-align: center;
+        color: white;
+      }
+      .bottom-left {
+    position: absolute;
+    bottom: 8px;
+    left: 16px;
+}
+      a{
+          color: inherit;
+      }
+      .tag{
+          color: skyblue;
+          text-align: right;
+      }
+      
+      .feed{
+          border: 1px solid lightgray;
+          padding-top: 10px;
+          padding-bottom: 10px;
+          margin-top: 5px;
+          margin-bottom: 5px;
+      }
+      
+      .news-tab{
+          display: inline;
+          padding-top: 30px;
+          
+      }
+      
+      ul li{
+          display: inline-block;
+          list-style: none;
+          padding: 20px;
+          text-decoration: none;
+          text-align: center;
+          border-bottom: solid 4px transparent;
+          
+          
+      }
+      
+      
+      ul li a:hover, ul li a:active{
+          color: white;
+          font-size; 20px;
+          text-decoration: none;
+          
+      }
+      
+      ul li:hover,ul li:active,ul li:after{
+          color: white;
+          border-bottom: solid 4px white;
+          transition: all 0.3s;
+          
+      }
+      
+      .search{
+          margin: 20px;
+      }
+      .searchb{
+          background: transparent;
+          border: none;
+          padding: 5px;
+          
+      }
+      .s{
+          color: skyblue;
+          font-size: 20px;
+      }
+      .t{
+          color: skyblue;
+          
+      }
+      
+      .ts{
+          margin-left: 15px;
+          color: skyblue;
+      }
+      
+      .margin-40{
+          margin-top: 40px;
+      }
+      
+    input, select, textarea {
+    font-family: inherit;
+    font-size: inherit;
+    background: inherit;
+    line-height: inherit;
+    border: 1px solid white;
+    border-bottom: 1px solid skyblue;
+    padding: 5px;
+    border-radius: 5px;
+}
+   textarea:focus, input:focus{
+    outline: none;
+}
+      
+      .user{
+          height: 200px;
+          width: 200px;
+          border: 1px solid skyblue;
+          border-radius: 100%;
+          margin-top: 40px;
+      }
+      
+      .repo{
+            border: 1px solid #eaf1f3;
+            border-radius: 5px;
+            box-shadow: 3px 3px 10px #b5c0c3;
+            padding: 10px;
+}
+      .calendar{
+          width: 100%;
+      }
+      
+  </style>
+</head>
+<body>
+
+<div class="jumbotron">
+    <div>
+        <a href="{{=URL('default','github')}}" ><span style="margin-left:10px" class="glyphicon glyphicon-chevron-left"></span></a>
+    </div>
+  <div class="container text-center">
+    <h2>GitHub</h2>
+  </div>
+  </div>
+
+<div class="container">
+    <div class="row">
+    <div class="col-md-4 col-md-offset-4">
+     <div class="search">
+            <span class="s glyphicon glyphicon-user"></span>
+            <input type="text" id="q" name="search-news"/><button id="search" class="searchb" name="search">
+            <span class="s glyphicon glyphicon-search"></span>
+        </button>
+    </div>
+        </div>
+    </div>
+    </div>
+    {{if request.vars.q:}}
+     {{try:}}
+    <div class="container">
+    <div class="row">
+    <div class="col-md-4 col-md-offset-4">
+         <img src="{{=j_u['avatar_url']}}" class="user"/>
+        <br>
+        <h3>
+            <a href="{{=j_u['url']}}">{{=j_u['name']}}</a>
+        </h3>
+        
+        </div>
+    </div>
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2 margin-40 t">
+                <div class="col-sm-4">E-mail: {{=j_u['email']}}</div>
+                <div class="col-sm-4">@{{=j_u['login']}}</div>
+                <div class="col-sm-4"><span class="s glyphicon glyphicon-map-marker"></span>{{=j_u['location']}}</div>
+            </div>
+        </div>
+    </div>
+    
+ <div class="container margin-40">
+     <h2>
+         {{=j_u['name']}}'s Repositories
+     </h2>
+    <div class="row margin-40">
+        {{for i in range(0,3):}}
+    <div class="col-sm-4 repo">
+        <div class="col-xs-12">
+         <h4 style="color: #086e90">
+             <a href="{{=mp_u[i]['html_url']}}">{{=mp_u[i]['full_name']}}</a>
+            </h4>
+            <hr>
+        </div>
+        <div class="col-xs-12">
+         <p style="font-size: 14px; padding:6px">
+             {{=mp_u[i]['description']}}
+            </p>
+        </div>
+        <div class="col-xs-12">
+         <p>
+             <span class="ts glyphicon glyphicon-adjust"></span> {{=mp_u[i]['language']}}
+             <span class="ts glyphicon glyphicon-certificate"></span> {{=mp_u[i]['watchers']}}
+             <span class="ts glyphicon glyphicon-filter"></span> {{=mp_u[i]['size']}}
+            </p>
+        </div>
+    </div>
+        {{pass}}
+    </div>
+    </div>
+
+    <div class="container margin-40">
+     <h2>
+         {{=j_u['name']}}'s Activities
+     </h2>
+    <div class="row margin-40">
+        <div class="col-md-12">
+            <div class="calendar">
+                Loading the data just for you.
+           </div>
+        </div>
+    </div>
+    </div>
+    
+    <div class="container margin-40">
+     <h2>
+         Other Repositories
+     </h2>
+    <div class="row margin-40">
+        {{if len(mp_u)>4:}}
+        {{for i in range(4,len(mp_u)):}}
+    <div class="col-sm-4 repo">
+        <div class="col-xs-12">
+            <img src="{{=mp_u[i]['owner']['avatar_url']}}" style="height: 25px;float:left; margin-right: 5px;"/>
+         <h4 style="color: #086e90;">
+             <a href="{{=mp_u[i]['html_url']}}"> {{=mp_u[i]['full_name']}}</a>
+            </h4>
+            <hr>
+        </div>
+        <div class="col-xs-12">
+         <p style="font-size: 14px; padding:6px">
+             {{=mp_u[i]['description']}}
+            </p>
+        </div>
+        <div class="col-xs-12">
+         <p>
+             <span class="ts glyphicon glyphicon-adjust"></span> {{=mp_u[i]['language']}}
+             <span class="ts glyphicon glyphicon-certificate"></span> {{=mp_u[i]['watchers']}}
+             <span class="ts glyphicon glyphicon-filter"></span> {{=mp_u[i]['size']}}
+            </p>
+        </div>
+    </div>
+        {{pass}}
+        {{else:}}
+        {{for i in range(0,3):}}
+    <div class="col-sm-4 repo">
+        <div class="col-xs-12">
+            <img src="{{=kp_u['items'][i]['owner']['avatar_url']}}" style="height: 25px;float:left; margin-right: 5px;"/>
+         <h4 style="color: #086e90;">
+             <a href="{{=kp_u['items'][i]['html_url']}}"> {{=kp_u['items'][i]['full_name']}}</a>
+            </h4>
+            <hr>
+        </div>
+        <div class="col-xs-12">
+         <p style="font-size: 14px; padding:6px">
+             {{=kp_u['items'][i]['description']}}
+            </p>
+        </div>
+        <div class="col-xs-12">
+         <p>
+             <span class="ts glyphicon glyphicon-adjust"></span> {{=kp_u['items'][i]['language']}}
+             <span class="ts glyphicon glyphicon-certificate"></span> {{=kp_u['items'][i]['watchers']}}
+             <span class="ts glyphicon glyphicon-filter"></span> {{=kp_u['items'][i]['size']}}
+            </p>
+        </div>
+    </div>
+        {{pass}}
+        {{pass}}
+    </div>
+    </div>
+    <div class="margin-40">
+    </div>
+
+<script>
+    new GitHubCalendar(".calendar", "{{=j_u['login']}}");
+</script>
+     {{except IndexError:}}
+     <h3>
+         The User has less then 3 repositories
+    </h3>
+    {{except HTTPError:}}
+        <h3>
+         User Repository Not Found
+        </h3>
+    {{pass}}
+    {{pass}}
+<script>
+    $("#search").click(function(){
+        var q = $('#q').val();
+        window.location.href = '{{=URL("default","git_user")}}'+'?q='+q;;
+
+});
+</script>
+
+
+</body>
+</html>

@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Bootstrap Example</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <style>
+
+    .jumbotron {
+    color: white;
+    background-color: #13a3e4;
+    margin-bottom: 0;
+    padding-bottom: 0px;
+    }
+
+    /* Add a gray background color and some padding to the footer */
+    footer {
+      background-color: #f2f2f2;
+      padding: 25px;
+    }
+      
+   .now{
+        position: relative;
+        text-align: center;
+        color: white;
+      }
+      .bottom-left {
+    position: absolute;
+    bottom: 8px;
+    left: 16px;
+}
+      a{
+          color: inherit;
+      }
+      .tag{
+          color: skyblue;
+          text-align: right;
+      }
+      
+      .feed{
+          border: 1px solid lightgray;
+          padding-top: 10px;
+          padding-bottom: 10px;
+          margin-top: 5px;
+          margin-bottom: 5px;
+      }
+      
+      .news-tab{
+          display: inline;
+          padding-top: 30px;
+          
+      }
+      
+      ul li{
+          display: inline-block;
+          list-style: none;
+          padding: 20px;
+          text-decoration: none;
+          text-align: center;
+          border-bottom: solid 4px transparent;
+          
+          
+      }
+      
+      
+      ul li a:hover, ul li a:active{
+          color: white;
+          font-size; 20px;
+          text-decoration: none;
+          
+      }
+      
+      ul li:hover,ul li:active,ul li:after{
+          color: white;
+          border-bottom: solid 4px white;
+          transition: all 0.3s;
+          
+      }
+      
+      .search{
+          float: right;
+          margin: 20px;
+      }
+      .searchb{
+          background: transparent;
+          border: none;
+          padding: 5px;
+          
+      }
+      .s{
+          color: white;
+          font-weight: bold;
+      }
+      
+      .margin-40{
+          margin-top: 40px;
+      }
+      
+    input, select, textarea {
+    font-family: inherit;
+    font-size: inherit;
+    background: inherit;
+    line-height: inherit;
+    border: 1px solid white;
+    padding: 5px;
+    border-radius: 5px;
+}
+  </style>
+</head>
+<body>
+
+<div class="jumbotron">
+    <div style="margin-left: 10px">
+        <a href="{{=URL('default','movie')}}" ><span class="glyphicon glyphicon-chevron-left"></span></a>
+    </div>
+    <div class="search">
+        <input type="text" id="q" name="search-news"/><button id="search" class="searchb" name="search">
+            <span class="s glyphicon glyphicon-search"></span>
+        </button>
+    </div>
+  <div class="container text-center">
+    <h2>Movie Finder</h2>
+  </div>
+  </div>
+
+<div class="container">
+    <div class="row">
+    <div class="col-sm-10 col-md-10 col-md-offset-1 col-sm-offset-1 col-lg-10 col-lg-offset-1">
+        <div class="col-sm-3 col-xs-4">
+            <img src="{{=poster}}" style="width:100%" />
+        </div>
+        <div class="col-sm-9 col-xs-8">
+           Director: {{=director}}
+            <br>
+            
+             Writer : {{=writer}}
+        </div>
+        </div>
+        <div class="col-sm-10 col-md-10 col-md-offset-1 col-sm-offset-1 col-lg-10 col-lg-offset-1">
+            <p>
+                {{=overview}}
+            </p>
+        </div>
+    </div>
+    </div>
+
+<script>
+    $("#search").click(function(){
+        var q = $('#q').val();
+        window.location.href = '{{=URL("default","movie")}}'+'?q='+q;;
+
+});
+</script>
+
+
+</body>
+</html>
